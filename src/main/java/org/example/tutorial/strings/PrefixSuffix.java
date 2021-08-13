@@ -1,4 +1,4 @@
-package com.tutorial.strings;
+package org.example.tutorial.strings;
 
 public class PrefixSuffix {
 //    private static int longestPrefixSuffix(String s) {

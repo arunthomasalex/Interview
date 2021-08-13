@@ -1,4 +1,4 @@
-package com.tutorial.others;
+package org.example.tutorial.others;
 
 import java.util.Random;
 

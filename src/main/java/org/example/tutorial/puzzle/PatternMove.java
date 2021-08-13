@@ -1,4 +1,4 @@
-package com.tutorial.puzzle;
+package org.example.tutorial.puzzle;
 
 public class PatternMove {
     public static void main(String[] args) throws InterruptedException {

@@ -1,4 +1,4 @@
-package com.tutorial.others;
+package org.example.tutorial.others;
 
 public class HalfAdderLogic {
     public static void main(String[] args) {
