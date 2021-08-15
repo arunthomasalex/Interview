@@ -13,6 +13,7 @@ public class NthLogestStringAlgorithm {
                                                                 Collections::<Integer, List<String>>unmodifiableMap
                                                         )
                                                 );
+        System.out.println(m);
         System.out.println(list.stream().max((v1, v2) -> v1.length() > v2.length() ? 1: -1).get());
     }
 }
