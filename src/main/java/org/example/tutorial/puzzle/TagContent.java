@@ -32,14 +32,14 @@ public class TagContent {
             String line = in.nextLine();
 
             String leftTag = null, rightTag = null, subString = line;
-            Pattern tagPattern = Pattern.compile("<([\\w {}`'=~@$#&%_!,\\^\\.\\*\\-\"\\+\\(\\)]+?)>");
-            Matcher tagMatcher = null;
+            Pattern pattern = Pattern.compile("<([\\w {}`'=~@$#&%_!,\\^\\.\\*\\-\"\\+\\(\\)]+?)>");
+            Matcher matcher = null;
             int removeIndex = -1;
             boolean selected = false, enter = true;
             List<String> subLines = new ArrayList<>();
             while(true) {
-                tagMatcher = tagPattern.matcher(subString);
-                if(!tagMatcher.find()) {
+                matcher = pattern.matcher(subString);
+                if(!matcher.find()) {
                     if(selected) {
                         if(enter && !subString.isEmpty() && !subLines.contains(subString))
                             subLines.add(subString);
@@ -50,8 +50,8 @@ public class TagContent {
                     }
                     break;
                 } 
-                leftTag = tagMatcher.group();
-                rightTag = "</" + tagMatcher.group(1) + ">";
+                leftTag = matcher.group();
+                rightTag = "</" + matcher.group(1) + ">";
                 int lastOccurence = subString.lastIndexOf(rightTag);
                 if(lastOccurence < 0) {
                     subString =  subString.substring(subString.indexOf(leftTag) + leftTag.length());
@@ -65,8 +65,7 @@ public class TagContent {
                 enter = true;
                 subString = subString.substring((subString.indexOf(leftTag) + leftTag.length()), subString.lastIndexOf(rightTag));
             }
-            if(subLines.isEmpty())
-                lines.add("None");
+            if(subLines.isEmpty()) subLines.add("None");
             lines.addAll(subLines);
             testCases--;
         }
