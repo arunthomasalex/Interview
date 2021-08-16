@@ -58,5 +58,6 @@ public class BracketValidation {
                 System.out.println("false");
             }
         });
+        sc.close();
     }
 }

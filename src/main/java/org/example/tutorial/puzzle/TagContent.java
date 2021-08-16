@@ -1,0 +1,59 @@
+package org.example.tutorial.puzzle;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TagContent {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int testCases = Integer.parseInt(in.nextLine());
+        List<String> lines = new ArrayList<>();
+        while (testCases > 0) {
+            String line = in.nextLine();
+
+            String leftTag = null, rightTag = null, subString = line;
+            Pattern tagPattern = Pattern.compile("<([\\w {}`'=~@$#&%_!,\\^\\.\\*\\-\"\\+\\(\\)]+?)>");
+            Matcher tagMatcher = null;
+            int removeIndex = -1;
+            boolean selected = false, enter = true;
+            List<String> subLines = new ArrayList<>();
+            while(true) {
+                tagMatcher = tagPattern.matcher(subString);
+                if(!tagMatcher.find()) {
+                    if(selected) {
+                        if(enter && !subString.isEmpty() && !subLines.contains(subString))
+                            subLines.add(subString);
+                        subString = line = line.substring(removeIndex);
+                        selected = false;
+                        removeIndex = -1;
+                        continue;
+                    }
+                    break;
+                } 
+                leftTag = tagMatcher.group();
+                rightTag = "</" + tagMatcher.group(1) + ">";
+                int lastOccurence = subString.lastIndexOf(rightTag);
+                if(lastOccurence < 0) {
+                    subString =  subString.substring(subString.indexOf(leftTag) + leftTag.length());
+                    enter = false;
+                    continue;
+                }
+                if(!selected && subString.lastIndexOf(rightTag) + rightTag.length() > -1) {
+                    removeIndex = subString.lastIndexOf(rightTag) + rightTag.length();
+                    selected = true;
+                }
+                enter = true;
+                subString = subString.substring((subString.indexOf(leftTag) + leftTag.length()), subString.lastIndexOf(rightTag));
+            }
+            if(subLines.isEmpty())
+                lines.add("None");
+            lines.addAll(subLines);
+            testCases--;
+        }
+        in.close();
+        lines.forEach(System.out::println);
+    }
+}
