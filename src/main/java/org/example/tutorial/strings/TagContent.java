@@ -1,4 +1,4 @@
-package org.example.tutorial.puzzle;
+package org.example.tutorial.strings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class TagContent {
             String line = in.nextLine();
 
             String leftTag = null, rightTag = null, subString = line;
-            Pattern pattern = Pattern.compile("<([\\w {}`'=~@$#&%_!,\\^\\.\\*\\-\"\\+\\(\\)]+?)>");
+            Pattern pattern = Pattern.compile("<([\\w {}`'=~@$#&%_!,\"\\^\\.\\*\\-\\+\\(\\)]+?)>");
             Matcher matcher = null;
             int removeIndex = -1;
             boolean selected = false, enter = true;
