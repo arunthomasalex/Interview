@@ -26,5 +26,6 @@ public class SubArrayElement {
         }
         
         System.out.println(max);
+        in.close();
     }
 }
