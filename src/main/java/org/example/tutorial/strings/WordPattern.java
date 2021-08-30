@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public class WordPattern {
     public static void main(String[] args) {
-        String sentence = "We make a living by what we get";
+        String sentence = "We make a living by what we get.";
         String[] words = sentence.split(" ");
         int iteration = Stream.of(words).mapToInt(s -> s.length()).max().getAsInt();
         IntStream.range(0, iteration).forEach(i -> {
