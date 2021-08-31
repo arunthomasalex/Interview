@@ -1,7 +1,9 @@
 package org.example.tutorial.others;
 
-import static org.example.tutorial.others.Trampoline.more;
-import static org.example.tutorial.others.Trampoline.done;
+import static org.example.tutorial.concepts.Trampoline.done;
+import static org.example.tutorial.concepts.Trampoline.more;
+
+import org.example.tutorial.concepts.Trampoline;
 
 public class TrampolineFactorial {
     public static Trampoline<Integer> factorial(int times, int prod) {
@@ -9,8 +11,7 @@ public class TrampolineFactorial {
     }
 
     public static void main(String[] args) {
-        Trampoline<Integer> t = factorial(4, 1);
-        var result = t.get();
+        var result = factorial(5, 1).tramp();
         System.out.println(result);
     }
 }

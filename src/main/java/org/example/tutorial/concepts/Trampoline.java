@@ -1,13 +1,14 @@
-package org.example.tutorial.others;
+package org.example.tutorial.concepts;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-interface Trampoline<T> {
+public interface Trampoline<T> {
 
-    T get();
+    T tramp();
 
     default Trampoline<T> next() {
-        return this;
+        return null;
     }
 
     default boolean complete() {
@@ -18,7 +19,7 @@ interface Trampoline<T> {
         return () -> result;
     }
 
-    static <T> Trampoline<T> more(final Trampoline<Trampoline<T>> trampoline) {
+    static <T> Trampoline<T> more(final Supplier<Trampoline<T>> trampoline) {
         return new Trampoline<T>() {
             @Override
             public boolean complete() {
@@ -31,14 +32,14 @@ interface Trampoline<T> {
             }
 
             @Override
-            public T get() {
-                return exec(this);
+            public T tramp() {
+                return execute(this);
             }
 
-            private T exec(final Trampoline<T> seed) {
+            private T execute(final Trampoline<T> seed) {
                 return Stream.iterate(seed, Trampoline::next)
                         .filter(Trampoline::complete).findAny()
-                        .map(Trampoline::get).orElseThrow();
+                        .map(Trampoline::tramp).orElseThrow();
             }
         };
     }
