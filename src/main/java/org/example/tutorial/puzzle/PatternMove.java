@@ -20,17 +20,16 @@ public class PatternMove {
                     j++;
                 } else {
                     array[k][l] = array[i][j];
-                    k = i; l = j;
                     if (i >= (array.length - 1) && j >= (array[i].length - 1)) {
                         array[i][j] = temp;
                         break;
-                    } else {
-                        if (j >= (array[i].length - 1)) {
-                            i++; j = 0;
-                            continue;
-                        }
-                        j++;
                     }
+                    k = i; l = j;
+                    if (j >= (array[i].length - 1)) {
+                        i++; j = 0;
+                        continue;
+                    }
+                    j++;
                 }
             }
             Thread.sleep(2000);
