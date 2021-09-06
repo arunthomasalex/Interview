@@ -1,22 +1,9 @@
 package org.example.tutorial.hackerearth;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import java.util.concurrent.*;
 
 public class DivideDigits {
     public static void main(String[] args) throws IOException {
@@ -102,24 +89,20 @@ public class DivideDigits {
     private static void findAllPermutations(int n, char[] elements, Set<Points> xy, int mid) {
         if (n == 1) {
             Map<Boolean, String> temp = Stream
-                                            .iterate(0, i -> i + 1)
-                                            .limit(elements.length)
-                                            .collect(Collectors.partitioningBy(i -> i < mid, 
-                                                Collectors.mapping(i -> String.valueOf(elements[i]),
-                                                    Collectors.collectingAndThen(Collectors.joining(),
-                                                        x -> x.chars().sorted().mapToObj(v -> String.valueOf((char)v)).collect(Collectors.joining())
-                                                    )
+                                        .iterate(0, i -> i + 1)
+                                        .limit(elements.length)
+                                        .collect(Collectors.partitioningBy(i -> i < mid, 
+                                            Collectors.mapping(i -> String.valueOf(elements[i]),
+                                                Collectors.collectingAndThen(Collectors.joining(),
+                                                    x -> x.chars().sorted().mapToObj(v -> String.valueOf((char)v)).collect(Collectors.joining())
                                                 )
-                                            ));
+                                            )
+                                        ));
             xy.add(new Points(temp.get(true), temp.get(false)));
         } else {
             for (int i = 0; i < n; i++) {
                 findAllPermutations(n - 1, elements, xy, mid);
-                if ((n & 1) == 0) {
-                    swap(elements, i, n - 1);
-                } else {
-                    swap(elements, 0, n - 1);
-                }
+                swap(elements, i, n - 1);
             }
         }
     }
