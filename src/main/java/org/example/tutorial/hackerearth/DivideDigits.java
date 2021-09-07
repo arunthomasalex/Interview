@@ -14,10 +14,7 @@ public class DivideDigits {
             for (; n > 0; n--) {
                 lst.add(service.submit(createTask(reader.readLine())));
             }
-            String result =  lst.stream()
-                                .map(DivideDigits::get)
-                                .map(x -> x.toString())
-                                .collect(Collectors.joining("\n"));
+            String result =  lst.stream().map(DivideDigits::get).map(x -> x.toString()).collect(Collectors.joining("\n"));
             System.out.println(result);
         } finally {
             service.shutdown();
