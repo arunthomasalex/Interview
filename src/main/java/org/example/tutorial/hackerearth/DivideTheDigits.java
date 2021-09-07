@@ -69,22 +69,22 @@ public class DivideTheDigits {
             int mid = value.length() / 2;
             Set<Points> xy = new HashSet<>();
             findAllPermutations(value.length(), value.toCharArray(), xy, mid);
-            return xy.stream().mapToInt(Points::sum).sorted().findFirst().getAsInt();
+            return xy.stream().map(Points::sum).sorted().findFirst().get();
         };
     }
 
     private static void findAllPermutations(int n, char[] elements, Set<Points> xy, int mid) {
         if (n == 1) {
             Map<Boolean, String> temp = Stream
-                                        .iterate(0, i -> i + 1)
-                                        .limit(elements.length)
-                                        .collect(Collectors.partitioningBy(i -> i < mid, 
-                                            Collectors.mapping(i -> String.valueOf(elements[i]),
-                                                Collectors.collectingAndThen(Collectors.toList(),
-                                                    x -> x.stream().sorted().collect(Collectors.joining())
+                                            .iterate(0, i -> i + 1)
+                                            .limit(elements.length)
+                                            .collect(Collectors.partitioningBy(i -> i < mid, 
+                                                Collectors.mapping(i -> String.valueOf(elements[i]),
+                                                    Collectors.collectingAndThen(Collectors.toList(),
+                                                        x -> x.stream().sorted().collect(Collectors.joining())
+                                                    )
                                                 )
-                                            )
-                                        ));
+                                            ));
             xy.add(new Points(temp.get(true), temp.get(false)));
         } else {
             for (int i = 0; i < n; i++) {
