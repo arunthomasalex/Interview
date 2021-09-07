@@ -14,20 +14,18 @@ public class DivideDigits {
             for (; n > 0; n--) {
                 lst.add(service.submit(createTask(reader.readLine())));
             }
-            StringBuilder builder = new StringBuilder();
-            lst.stream().map(DivideDigits::get).forEach(v -> {
-                builder.append(v).append("\n");
-            });
-            System.out.println(builder.toString());
+            String result =  lst.stream()
+                                .map(DivideDigits::get)
+                                .map(x -> x.toString())
+                                .collect(Collectors.joining("\n"));
+            System.out.println(result);
         } finally {
             service.shutdown();
         }
     }
 
     static class Points {
-        private Integer x;
-        private Integer y;
-
+        private Integer x, y;
         Points(String x, String y) {
             this.x = Integer.parseInt(x);
             this.y = Integer.parseInt(y);
@@ -50,20 +48,12 @@ public class DivideDigits {
         public boolean equals(Object obj) {
             if (this == obj)
                 return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
+            if (obj == null || getClass() != obj.getClass())
                 return false;
             Points other = (Points) obj;
-            if (x == null) {
-                if (other.x != null)
-                    return false;
-            } else if (!x.equals(other.x))
+            if (x == null && (other.x != null || !x.equals(other.x)))
                 return false;
-            if (y == null) {
-                if (other.y != null)
-                    return false;
-            } else if (!y.equals(other.y))
+            if (y == null && (other.y != null || !y.equals(other.y)))
                 return false;
             return true;
         }
@@ -93,8 +83,8 @@ public class DivideDigits {
                                         .limit(elements.length)
                                         .collect(Collectors.partitioningBy(i -> i < mid, 
                                             Collectors.mapping(i -> String.valueOf(elements[i]),
-                                                Collectors.collectingAndThen(Collectors.joining(),
-                                                    x -> x.chars().sorted().mapToObj(v -> String.valueOf((char)v)).collect(Collectors.joining())
+                                                Collectors.collectingAndThen(Collectors.toList(),
+                                                    x -> x.stream().sorted().collect(Collectors.joining())
                                                 )
                                             )
                                         ));

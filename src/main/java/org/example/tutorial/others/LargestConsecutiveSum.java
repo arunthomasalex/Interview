@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Entry {
-    public int start = 0, to = 0, value = 0;
+    public int from = 0, to = 0, value = 0;
 
     @Override
     public String toString() {
-        return "Entry [start=" + start + ", to=" + to + ", value=" + value + "]";
+        return "Entry [from=" + from + ", to=" + to + ", value=" + value + "]";
     }
 }
 
 public class LargestConsecutiveSum {
     private static Entry maxSum(int[] array, int i) {
         Entry e = new Entry();
-        e.start = i;
+        e.from = i;
         int sum = 0;
         for (; i < array.length; i++) {
             sum += array[i];
@@ -34,6 +34,6 @@ public class LargestConsecutiveSum {
             l.add(maxSum(a, i));
         }
         Entry largest = l.stream().sorted((e1, e2) -> e1.value < e2.value ? 1 : -1).findFirst().get();
-        System.out.println("Sum = " + largest.value + " started at " + largest.start + ".."  + largest.to);
+        System.out.println(largest);
     }
 }
