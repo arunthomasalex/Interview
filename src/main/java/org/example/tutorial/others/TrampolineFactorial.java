@@ -11,7 +11,6 @@ public class TrampolineFactorial {
     }
 
     public static void main(String[] args) {
-        var result = factorial(5, 1).tramp();
-        System.out.println(result);
+        System.out.println(factorial(5, 1).tramp());
     }
 }
